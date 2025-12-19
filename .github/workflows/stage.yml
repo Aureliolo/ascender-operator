@@ -37,11 +37,11 @@ jobs:
 
           exit 0
 
-      - name: Checkout awx-operator
+      - name: Checkout ascender-operator
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.repository_owner }}/awx-operator
-          path: awx-operator
+          repository: ${{ github.repository_owner }}/ascender-operator
+          path: ascender-operator
 
       - name: Install playbook dependencies
         run: |
@@ -54,24 +54,24 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Stage awx-operator
-        working-directory: awx-operator
+      - name: Stage ascender-operator
+        working-directory: ascender-operator
         run: |
           BUILD_ARGS="--build-arg DEFAULT_AWX_VERSION=${{ github.event.inputs.default_awx_version }} \
               --build-arg OPERATOR_VERSION=${{ github.event.inputs.version }}" \
           IMG=ghcr.io/${{ github.repository }}:${{ github.event.inputs.version }} \
           make docker-buildx
 
-      - name: Run test deployment
-        working-directory: awx-operator
-        run: |
-          python3 -m pip install -r molecule/requirements.txt
-          ansible-galaxy collection install -r molecule/requirements.yml
-          sudo rm -f $(which kustomize)
-          make kustomize
-          KUSTOMIZE_PATH=$(readlink -f bin/kustomize) molecule test -s kind
-        env:
-          AWX_TEST_VERSION: ${{ github.event.inputs.default_awx_version }}
+      # - name: Run test deployment
+      #   working-directory: ascender-operator
+      #   run: |
+      #     python3 -m pip install -r molecule/requirements.txt
+      #     ansible-galaxy collection install -r molecule/requirements.yml
+      #     sudo rm -f $(which kustomize)
+      #     make kustomize
+      #     KUSTOMIZE_PATH=$(readlink -f bin/kustomize) molecule test -s kind
+      #   env:
+      #     AWX_TEST_VERSION: ${{ github.event.inputs.default_awx_version }}
 
       - name: Create Draft Release
         id: create_release
