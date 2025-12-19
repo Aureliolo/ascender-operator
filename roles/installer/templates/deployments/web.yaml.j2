@@ -147,7 +147,7 @@ spec:
             capabilities:
               add: {{ redis_capabilities }}
 {% endif %}
-          args: ["redis-server", "/etc/valkey.conf"]
+          args: ["valkey-server", "/etc/valkey.conf"]
           volumeMounts:
             - name: {{ ansible_operator_meta.name }}-redis-config
               mountPath: "/etc/valkey.conf"
