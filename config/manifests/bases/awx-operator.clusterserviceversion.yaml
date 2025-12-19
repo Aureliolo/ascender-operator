@@ -5,13 +5,13 @@ metadata:
     alm-examples: '[]'
     capabilities: Basic Install
     categories: Integration & Delivery
-    containerImage: quay.io/ansible/awx-operator:devel
+    containerImage: ghcr.io/cigamit/ascender-operator:latest
     createdAt: "2019-10-30"
-    description: AWX provides a web-based user interface, REST API, and task engine
+    description: Ascender provides a web-based user interface, REST API, and task engine
       built on top of Ansible.
-    repository: https://github.com/ansible/awx-operator
+    repository: https://github.com/cigamit/ascender-operator
     support: forum.ansible.com
-  name: awx-operator.v0.0.0
+  name: ascender-operator.v0.0.0
   namespace: placeholder
 spec:
   apiservicedefinitions: {}
@@ -1208,14 +1208,14 @@ spec:
   - automation
   - ansible
   links:
-  - name: AWX Operator
-    url: https://github.com/ansible/awx-operator
+  - name: Ascender Operator
+    url: https://github.com/cigamit/ascender-operator
   maintainers:
-  - email: awx-project@googlegroups.com
-    name: AWX Team
+  - email: sales@ciq.com
+    name: Ascender Team
   maturity: alpha
   minKubeVersion: 1.22.15
   provider:
     name: Ansible
-    url: github.com/ansible/awx-operator
+    url: github.com/cigamit/ascender-operator
   version: 0.0.0
