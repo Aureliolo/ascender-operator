@@ -147,14 +147,14 @@ spec:
             capabilities:
               add: {{ redis_capabilities }}
 {% endif %}
-          args: ["redis-server", "/etc/redis.conf"]
+          args: ["redis-server", "/etc/valkey.conf"]
           volumeMounts:
             - name: {{ ansible_operator_meta.name }}-redis-config
-              mountPath: "/etc/redis.conf"
+              mountPath: "/etc/valkey.conf"
               subPath: redis.conf
               readOnly: true
             - name: {{ ansible_operator_meta.name }}-redis-socket
-              mountPath: "/var/run/redis"
+              mountPath: "/var/run/valkey"
             - name: "{{ ansible_operator_meta.name }}-redis-data"
               mountPath: "/data"
           resources: {{ redis_resource_requirements }}
@@ -242,7 +242,7 @@ spec:
               subPath: nginx.conf
               readOnly: true
             - name: {{ ansible_operator_meta.name }}-redis-socket
-              mountPath: "/var/run/redis"
+              mountPath: "/var/run/valkey"
             - name: rsyslog-socket
               mountPath: "/var/run/awx-rsyslog"
 {% if projects_persistence|bool %}
@@ -315,7 +315,7 @@ spec:
               readOnly: true
             {{ lookup("template", "common/volume_mounts/extra_settings_files.yaml.j2")  | indent(width=12) | trim }}
             - name: {{ ansible_operator_meta.name }}-redis-socket
-              mountPath: "/var/run/redis"
+              mountPath: "/var/run/valkey"
             - name: rsyslog-socket
               mountPath: "/var/run/awx-rsyslog"
 {% if bundle_ca_crt  %}

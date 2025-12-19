@@ -201,14 +201,14 @@ spec:
             capabilities:
               add: {{ redis_capabilities }}
 {% endif %}
-          args: ["redis-server", "/etc/redis.conf"]
+          args: ["valkey-server", "/etc/valkey.conf"]
           volumeMounts:
             - name: {{ ansible_operator_meta.name }}-redis-config
-              mountPath: "/etc/redis.conf"
-              subPath: redis.conf
+              mountPath: "/etc/valkey.conf"
+              subPath: valkey.conf
               readOnly: true
             - name: {{ ansible_operator_meta.name }}-redis-socket
-              mountPath: "/var/run/redis"
+              mountPath: "/var/run/valkey"
             - name: "{{ ansible_operator_meta.name }}-redis-data"
               mountPath: "/data"
 {% if termination_grace_period_seconds is defined %}
@@ -293,7 +293,7 @@ spec:
               readOnly: true
             {{ lookup("template", "common/volume_mounts/extra_settings_files.yaml.j2")  | indent(width=12) | trim }}
             - name: {{ ansible_operator_meta.name }}-redis-socket
-              mountPath: "/var/run/redis"
+              mountPath: "/var/run/valkey"
             - name: rsyslog-socket
               mountPath: "/var/run/awx-rsyslog"
             - name: "{{ ansible_operator_meta.name }}-receptor-config"
@@ -439,7 +439,7 @@ spec:
               readOnly: true
             {{ lookup("template", "common/volume_mounts/extra_settings_files.yaml.j2")  | indent(width=12) | trim }}
             - name: {{ ansible_operator_meta.name }}-redis-socket
-              mountPath: "/var/run/redis"
+              mountPath: "/var/run/valkey"
             - name: rsyslog-socket
               mountPath: "/var/run/awx-rsyslog"
 {% if bundle_ca_crt  %}
