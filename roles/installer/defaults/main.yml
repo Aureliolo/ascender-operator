@@ -212,6 +212,10 @@ task_annotations: ''
 #   my.web-annotation/2: value2
 web_annotations: ''
 
+# Number of old ReplicaSets to retain for rollback. Applies to web and
+# task deployments.
+revision_history_limit: 2
+
 admin_user: admin
 admin_email: test@example.com
 
@@ -491,3 +495,8 @@ nginx_worker_cpu_affinity: 'auto'
 nginx_listen_queue_size: "{{ uwsgi_listen_queue_size }}"
 
 extra_settings_files: {}
+
+# Time in seconds before a finished migration Job is automatically deleted.
+# Defaults to 1 day (86400 seconds). Set to 0 for immediate cleanup.
+# migration_job_ttl: 86400
+migration_job_ttl: 86400
