@@ -194,18 +194,11 @@ spec:
 {% if init_container_extra_volume_mounts -%}
             {{ init_container_extra_volume_mounts | indent(width=12, first=True) }}
 {% endif %}
-{% if projects_persistence|bool and is_k8s|bool %}
+{% if projects_persistence|bool and is_k8s|bool and not (restricted_security_context | bool) %}
         - name: init-projects
           image: '{{ _init_projects_container_image }}'
           imagePullPolicy: '{{ image_pull_policy }}'
           resources: {{ init_container_resource_requirements }}
-{% if restricted_security_context | bool %}
-          securityContext:
-            allowPrivilegeEscalation: false
-            capabilities:
-              drop:
-                - ALL
-{% endif %}
           command:
             - /bin/sh
             - -c
